@@ -1,0 +1,73 @@
+def get_quantity(item_name, price):
+    while True:
+        try:
+            quantity = int(input(f"Enter quantity for {item_name} (₹{price}): "))
+            if quantity < 0:
+                print("Invalid quantity. Please enter a non-negative number.")
+            else:
+                return quantity
+        except ValueError:
+            print("Invalid input. Please enter a whole number.")
+
+def generate_bill():
+
+    # Sample menu items 
+    menu = {"1": ("Veg Pakora", 120),
+    "2": ("Paneer Tikka Masala", 150),
+    "3": ("Spring Rolls", 80),
+    "4": ("Mushroom Chilli Fry", 100),
+    "5": ("Dal Makhani", 180),
+    "6": ("Paneer Butter Masala", 200),
+    "7": ("Vegetable Biryani", 220),
+    "8": ("Malai Kofta", 250),
+    "9": ("Roti", 20),
+    "10": ("Naan", 40),
+    "11": ("Tandoori Roti", 30),
+    "12": ("Paratha", 25),
+     "13": ("Jeera Rice", 80),
+    "14": ("Basmati Rice", 100),
+    "15": ("Vegetable Pulao", 120),
+    "16": ("Gulab Jamun", 100),
+    "17": ("Rasmalai", 120),
+    "18": ("Rasgulla", 80),
+    "19": ("Falooda", 150)
+    }
+
+    order = {}  
+    total_bill = 0.0
+
+    print("\nWelcome to Python generated Veg Indian Restaurant!")
+    print("Our Menu:")
+    for item_id, (item_name, price) in menu.items():
+        print(f"{item_id}: {item_name} - ₹{price}")
+
+    while True:
+        item_id = input("\nEnter item ID (or 'q' to quit): ").upper()
+        if item_id == 'Q':
+            break
+
+        if item_id not in menu:
+            print(f"Invalid item ID: {item_id}")
+            continue
+
+        quantity = get_quantity(menu[item_id][0], menu[item_id][1])
+        order[item_id] = (menu[item_id][0], quantity, menu[item_id][1] * quantity)
+        total_bill += order[item_id][2]
+
+
+
+    # Generate and print the bill
+    print("\n**Your Bill:**")
+    print("-" * 40)
+    print("{:<20s}{:>10s}{:>10s}".format("Item", "Qty", "Price"))
+    print("-" * 40)
+    for item_id, (item_name, quantity, item_price) in order.items():
+        print("{:<20s}{:>10d}{:>10d}".format(item_name, quantity, item_price))
+    print("-" * 40)
+    print("{:<20s}{:>10.2f}".format("Total", total_bill))
+    print("-" * 40)
+
+    print("\nThank you for visiting us! Enjoy your meal.")
+
+if __name__ == "__main__":
+    generate_bill()
