@@ -1,0 +1,40 @@
+import random
+
+class NumberGuessingGame:
+  def __init__(self):#INIT FUNCTION
+    self.secret_number = self.generate_secret_number()
+    self.guesses = 0
+
+  def generate_secret_number(self):#GENERATES NUMBER
+    return random.randint(1, 100)
+
+  def take_guess(self):#TAKE A GUESS FUNCTION AS INPUT
+    while True:
+      try:
+        guess = int(input("Enter your guess: "))
+        return guess
+      except ValueError:
+        print("Invalid input. Please enter a number.")
+
+  def check_guess(self, guess):#CHECK THE INPUT GUESS
+    self.guesses += 1
+    if guess == self.secret_number:
+      return "Correct!"
+    elif guess < self.secret_number:
+      return "Too low."
+    else:
+      return "Too high."
+
+  def play(self):#OUTSIDE OF CLASS AND USE TO RUN IT 
+    print("I'm thinking of a number between 1 and 100.")
+    while True:
+      guess = self.take_guess()
+      result = self.check_guess(guess)
+      print(result)
+      if result == "Correct!":
+        print(f"You guessed it in {self.guesses} tries!")
+        break
+
+#MAIN FUNCTION
+game = NumberGuessingGame()
+game.play()
